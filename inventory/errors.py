@@ -6,7 +6,7 @@ class InventoryError(Exception):
 
 
 class ProductNotFoundError(InventoryError):
-    """Raised when an operation needs a product that the store does not have.
+    """Raised when an operation needs a product that the location does not have.
 
     Attributes:
         sku: The SKU that was not found.
@@ -20,6 +20,23 @@ class ProductNotFoundError(InventoryError):
         """
         super().__init__(f"product not found: {sku!r}")
         self.sku = sku
+
+
+class LocationNotFoundError(InventoryError):
+    """Raised when an operation names a location that has not been added.
+
+    Attributes:
+        name: The location name that was not found.
+    """
+
+    def __init__(self, name: str) -> None:
+        """Create the error for a missing location.
+
+        Args:
+            name: The location name that was not found.
+        """
+        super().__init__(f"location not found: {name!r}")
+        self.name = name
 
 
 class InsufficientStockError(InventoryError):

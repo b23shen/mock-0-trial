@@ -1,22 +1,22 @@
-"""Store model: one merchant's store and the stock of each product, kept in memory."""
+"""Location model: one place that holds stock, such as a warehouse or a shop."""
 
 from inventory.errors import InsufficientStockError, ProductNotFoundError
 from inventory.product import Product, _validate_sku
 
 
-class Store:
-    """A merchant's store that tracks stock for many products.
+class Location:
+    """One place where the merchant keeps stock, such as a warehouse or a shop.
 
     Attributes:
-        name: The store's name. Must not be blank.
-        products: All products the store has ever stocked, keyed by SKU.
+        name: The location's name. Must not be blank.
+        products: All products the location has ever stocked, keyed by SKU.
     """
 
     def __init__(self, name: str) -> None:
-        """Create an empty store.
+        """Create an empty location.
 
         Args:
-            name: The store's name.
+            name: The location's name.
 
         Raises:
             TypeError: If name is not a str.
@@ -61,7 +61,7 @@ class Store:
         Raises:
             TypeError: If sku is not a str, or amount is not an int.
             ValueError: If sku is blank, or amount is less than 1.
-            ProductNotFoundError: If the store has never stocked this SKU.
+            ProductNotFoundError: If the location has never stocked this SKU.
             InsufficientStockError: If amount is more than the units in stock.
         """
         _validate_sku(sku)
@@ -81,7 +81,7 @@ class Store:
             sku: The product's SKU.
 
         Returns:
-            The units in stock, or 0 if the store has never stocked this SKU.
+            The units in stock, or 0 if the location has never stocked this SKU.
 
         Raises:
             TypeError: If sku is not a str.
@@ -93,7 +93,7 @@ class Store:
 
 
 def _validate_name(name: str) -> None:
-    """Check that a store name is a non-blank string.
+    """Check that a location name is a non-blank string.
 
     Args:
         name: The name to check.
